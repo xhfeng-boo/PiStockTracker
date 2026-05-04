@@ -1,0 +1,14 @@
+{
+  "name": "pi-finnhub-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lightweight Raspberry Pi stock market tracker dashboard powered by Finnhub.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

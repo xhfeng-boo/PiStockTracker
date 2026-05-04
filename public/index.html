@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pi Market Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Finnhub Live Market Data</p>
+          <h1>Pi Market Tracker</h1>
+        </div>
+        <div class="status" id="marketStatus">Loading market status</div>
+      </header>
+
+      <section class="layout">
+        <div>
+          <section class="summary" id="summaryGrid" aria-label="Stock watchlist"></section>
+        </div>
+      </section>
+
+      <p class="updated" id="updatedAt"></p>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
