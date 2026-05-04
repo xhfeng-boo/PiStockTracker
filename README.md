@@ -74,3 +74,4 @@ The app uses these Finnhub REST endpoints:
 
 The free tier has rate limits, so the server caches quote responses briefly and slower-changing data for longer.
 # PiStockTracker
+# PiStockTracker
