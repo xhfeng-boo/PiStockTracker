@@ -70,7 +70,7 @@ function stockCard(stock) {
       </div>
       <div class="price">${money(stock.price, stock.currency)}</div>
       <div class="change ${isUp ? "positive" : "negative"}">
-        ${signed(stock.change)} (${signed(stock.changePercent)}%)
+        ${signed(stock.changePercent)}%
       </div>
       <div class="meta-grid">
         <span>Open ${money(stock.open, stock.currency)}</span>
