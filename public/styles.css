@@ -87,8 +87,8 @@ h2 {
   grid-template-columns: clamp(430px, 29vw, 620px) minmax(0, 0.68fr) clamp(360px, 25vw, 560px);
   gap: 18px;
   align-items: stretch;
-  height: min(78vh, 920px);
-  min-height: 720px;
+  height: min(88vh, 1080px);
+  min-height: 860px;
 }
 
 .layout {
@@ -99,7 +99,7 @@ h2 {
   border: 1px solid rgba(244, 241, 232, 0.14);
   border-radius: 8px;
   background: rgba(27, 32, 34, 0.86);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .calendar-panel,
@@ -216,9 +216,9 @@ h2 {
   display: grid;
   gap: 14px;
   min-width: 0;
-  height: 100%;
-  overflow: auto;
-  padding-right: 4px;
+  height: auto;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .stock-row {
@@ -226,8 +226,8 @@ h2 {
   grid-template-columns: minmax(190px, 0.72fr) minmax(0, 0.82fr) minmax(210px, 0.78fr);
   align-items: center;
   gap: 16px;
-  min-height: 150px;
-  padding: 18px 20px;
+  min-height: 186px;
+  padding: 24px 24px;
   border: 1px solid rgba(244, 241, 232, 0.14);
   border-radius: 8px;
   background: rgba(27, 32, 34, 0.86);
@@ -271,14 +271,14 @@ h2 {
 }
 
 .stock-chart {
-  height: 106px;
+  height: 138px;
   min-width: 0;
 }
 
 .sparkline {
   display: block;
   width: 100%;
-  height: 106px;
+  height: 138px;
 }
 
 .stock-metrics {
@@ -359,13 +359,13 @@ h2 {
 
   .stock-row {
     grid-template-columns: minmax(230px, 0.78fr) minmax(0, 0.86fr) minmax(250px, 0.82fr);
-    min-height: 168px;
-    padding: 20px 22px;
+    min-height: 204px;
+    padding: 26px 26px;
   }
 
   .stock-chart,
   .sparkline {
-    height: 118px;
+    height: 150px;
   }
 }
 
