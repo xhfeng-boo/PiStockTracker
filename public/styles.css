@@ -82,8 +82,8 @@ h2 {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: clamp(320px, 24vw, 460px) minmax(0, 1fr) clamp(260px, 20vw, 360px);
-  gap: 16px;
+  grid-template-columns: clamp(410px, 27vw, 560px) minmax(0, 0.86fr) clamp(340px, 24vw, 500px);
+  gap: 18px;
   align-items: start;
 }
 
@@ -96,7 +96,7 @@ h2 {
 .weather-panel {
   position: sticky;
   top: 24px;
-  padding: 30px;
+  padding: 36px;
   border: 1px solid rgba(244, 241, 232, 0.14);
   border-radius: 8px;
   background: rgba(27, 32, 34, 0.86);
@@ -115,19 +115,19 @@ h2 {
 .calendar-day,
 .weather-day {
   display: grid;
-  grid-template-columns: 104px minmax(0, 1fr);
+  grid-template-columns: 118px minmax(0, 1fr);
   align-items: center;
-  gap: 18px;
-  min-height: 118px;
-  padding: 18px;
+  gap: 22px;
+  min-height: 132px;
+  padding: 22px;
   border: 1px solid rgba(244, 241, 232, 0.12);
   border-radius: 8px;
   background: rgba(17, 19, 20, 0.56);
 }
 
 .weather-day {
-  grid-template-columns: 72px minmax(0, 1fr) auto;
-  gap: 12px;
+  grid-template-columns: 82px 64px minmax(0, 1fr) auto;
+  gap: 14px;
 }
 
 
@@ -145,14 +145,14 @@ h2 {
 .day-name,
 .weather-name {
   color: var(--accent);
-  font-size: clamp(1.08rem, 1.05vw, 1.45rem);
+  font-size: clamp(1.24rem, 1.18vw, 1.65rem);
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .day-number,
 .weather-number {
-  font-size: clamp(2.35rem, 2.45vw, 3.35rem);
+  font-size: clamp(2.8rem, 2.8vw, 4rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -162,6 +162,12 @@ h2 {
   min-width: 0;
 }
 
+.weather-icon {
+  justify-self: center;
+  font-size: clamp(2.2rem, 2.1vw, 3rem);
+  line-height: 1;
+}
+
 .weather-details {
   display: grid;
   gap: 6px;
@@ -169,14 +175,14 @@ h2 {
 
 .weather-details strong {
   overflow: hidden;
-  font-size: clamp(1.08rem, 1.05vw, 1.4rem);
+  font-size: clamp(1.28rem, 1.18vw, 1.65rem);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .weather-details span {
   color: var(--muted);
-  font-size: clamp(1.25rem, 1.25vw, 1.7rem);
+  font-size: clamp(1.55rem, 1.5vw, 2.05rem);
   font-weight: 900;
 }
 
@@ -184,14 +190,14 @@ h2 {
   justify-self: end;
   white-space: nowrap;
   color: var(--blue);
-  font-size: clamp(1rem, 1vw, 1.28rem);
+  font-size: clamp(1.2rem, 1.15vw, 1.55rem);
   font-weight: 900;
 }
 
 .calendar-empty {
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1.08rem, 1.05vw, 1.38rem);
+  font-size: clamp(1.28rem, 1.18vw, 1.62rem);
 }
 
 .summary {
@@ -205,8 +211,8 @@ h2 {
   grid-template-columns: minmax(170px, 0.72fr) minmax(0, 1fr) minmax(190px, 0.68fr);
   align-items: center;
   gap: 16px;
-  min-height: 154px;
-  padding: 16px 18px;
+  min-height: 112px;
+  padding: 10px 16px;
   border: 1px solid rgba(244, 241, 232, 0.14);
   border-radius: 8px;
   background: rgba(27, 32, 34, 0.86);
@@ -226,7 +232,7 @@ h2 {
 
 .stock-symbol {
   margin: 0 0 8px;
-  font-size: clamp(1.95rem, 2.1vw, 3.1rem);
+  font-size: clamp(1.65rem, 1.75vw, 2.55rem);
   font-weight: 900;
   line-height: 0.95;
 }
@@ -250,14 +256,14 @@ h2 {
 }
 
 .stock-chart {
-  height: 118px;
+  height: 78px;
   min-width: 0;
 }
 
 .sparkline {
   display: block;
   width: 100%;
-  height: 118px;
+  height: 78px;
 }
 
 .stock-metrics {
@@ -267,7 +273,7 @@ h2 {
 
 .price {
   margin-bottom: 10px;
-  font-size: clamp(1.95rem, 2.25vw, 3.45rem);
+  font-size: clamp(1.68rem, 1.85vw, 2.85rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -307,43 +313,43 @@ h2 {
 
 @media (min-width: 1700px) {
   .dashboard-grid {
-    grid-template-columns: clamp(420px, 24vw, 520px) minmax(0, 1fr) clamp(340px, 19vw, 420px);
-    gap: 18px;
+    grid-template-columns: clamp(500px, 28vw, 640px) minmax(0, 0.82fr) clamp(420px, 24vw, 560px);
+    gap: 20px;
   }
 
   .calendar-panel,
   .weather-panel {
-    padding: 34px;
+    padding: 40px;
   }
 
   .calendar-day,
   .weather-day {
-    grid-template-columns: 118px minmax(0, 1fr);
-    min-height: 136px;
-    padding: 22px;
+    grid-template-columns: 132px minmax(0, 1fr);
+    min-height: 152px;
+    padding: 26px;
   }
 
   .weather-day {
-    grid-template-columns: 92px minmax(0, 1fr) auto;
+    grid-template-columns: 96px 72px minmax(0, 1fr) auto;
   }
 
   .day-number {
-    font-size: clamp(2.8rem, 2.7vw, 3.8rem);
+    font-size: clamp(3.2rem, 3vw, 4.4rem);
   }
 
   .calendar-empty {
-    font-size: clamp(1.18rem, 1.1vw, 1.5rem);
+    font-size: clamp(1.38rem, 1.25vw, 1.75rem);
   }
 
   .stock-row {
     grid-template-columns: minmax(210px, 0.75fr) minmax(0, 1.4fr) minmax(230px, 0.7fr);
-    min-height: 174px;
-    padding: 20px 22px;
+    min-height: 124px;
+    padding: 12px 18px;
   }
 
   .stock-chart,
   .sparkline {
-    height: 132px;
+    height: 88px;
   }
 }
 
