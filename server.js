@@ -12,8 +12,9 @@ loadEnv();
 
 const apiKey = process.env.FINNHUB_API_KEY;
 const port = Number(process.env.PORT || 3000);
-const defaultSymbols = cleanSymbols(process.env.DEFAULT_SYMBOLS || "SPY,GOOGL,AMZN,MSFT,SOXL,INTC,TSLA,QQQ,GLD");
+const defaultSymbols = cleanSymbols(process.env.DEFAULT_SYMBOLS || "SPY,GOOGL,AMZN,MSFT,SOXL,INTC,TSLA,QQQ,GLD,AMD,MU");
 const cache = new Map();
+const priceHistory = new Map();
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -106,24 +107,53 @@ async function getStockSummary(symbol) {
       cached(`profile:${symbol}`, 600_000, () => finnhub("/stock/profile2", { symbol }))
     ]);
 
+    const price = quote.c ?? null;
+    const previousClose = quote.pc ?? null;
+    const history = updatePriceHistory(symbol, price, previousClose);
+
     return {
       symbol,
       name: profile.name || symbol,
       logo: profile.logo || "",
       exchange: profile.exchange || "",
       currency: profile.currency || "USD",
-      price: quote.c ?? null,
+      price,
       change: quote.d ?? null,
       changePercent: quote.dp ?? null,
       high: quote.h ?? null,
       low: quote.l ?? null,
       open: quote.o ?? null,
-      previousClose: quote.pc ?? null,
+      previousClose,
+      history,
       timestamp: quote.t ? new Date(quote.t * 1000).toISOString() : null
     };
   } catch (error) {
     return { symbol, error: error.message };
   }
+}
+
+function updatePriceHistory(symbol, price, previousClose) {
+  const now = Date.now();
+  const points = priceHistory.get(symbol) || [];
+
+  if (points.length === 0 && isFiniteNumber(previousClose)) {
+    points.push({ time: now - 60_000, price: Number(previousClose) });
+  }
+
+  if (isFiniteNumber(price)) {
+    const last = points.at(-1);
+    if (!last || last.price !== Number(price) || now - last.time > 45_000) {
+      points.push({ time: now, price: Number(price) });
+    }
+  }
+
+  const trimmed = points.slice(-80);
+  priceHistory.set(symbol, trimmed);
+  return trimmed;
+}
+
+function isFiniteNumber(value) {
+  return value !== null && value !== undefined && Number.isFinite(Number(value));
 }
 
 async function finnhub(pathname, params = {}) {
