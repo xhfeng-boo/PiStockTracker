@@ -91,7 +91,7 @@ h2 {
 
 .stock-row {
   display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(300px, 1.25fr) minmax(220px, 0.75fr) minmax(300px, 0.9fr);
+  grid-template-columns: minmax(250px, 0.85fr) minmax(420px, 1.7fr) minmax(240px, 0.75fr);
   align-items: center;
   gap: 24px;
   min-height: 168px;
@@ -175,14 +175,6 @@ h2 {
   color: var(--bad);
 }
 
-.meta-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 16px;
-  color: var(--muted);
-  font-size: clamp(0.92rem, 0.92vw, 1.2rem);
-}
-
 .updated {
   margin: 24px 0 0;
   color: var(--muted);
@@ -204,7 +196,7 @@ h2 {
 
 @media (min-width: 1700px) {
   .stock-row {
-    grid-template-columns: minmax(280px, 0.8fr) minmax(420px, 1.35fr) minmax(260px, 0.75fr) minmax(340px, 0.9fr);
+    grid-template-columns: minmax(320px, 0.85fr) minmax(640px, 1.8fr) minmax(280px, 0.75fr);
     min-height: 188px;
     padding: 22px 30px;
   }
@@ -223,10 +215,6 @@ h2 {
   .stock-chart {
     grid-column: 1 / -1;
     order: 4;
-  }
-
-  .meta-grid {
-    grid-column: 1 / -1;
   }
 }
 
@@ -303,10 +291,5 @@ h2 {
 
   .price {
     margin-bottom: 8px;
-  }
-
-  .meta-grid {
-    gap: 8px;
-    font-size: 0.82rem;
   }
 }

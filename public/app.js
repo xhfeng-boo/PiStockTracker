@@ -84,13 +84,6 @@ function stockRow(stock) {
         <div class="price">${money(stock.price, stock.currency)}</div>
         <div class="change ${isUp ? "positive" : "negative"}">${signed(stock.changePercent)}%</div>
       </div>
-
-      <div class="meta-grid">
-        <span>Open ${money(stock.open, stock.currency)}</span>
-        <span>Prev ${money(stock.previousClose, stock.currency)}</span>
-        <span>High ${money(stock.high, stock.currency)}</span>
-        <span>Low ${money(stock.low, stock.currency)}</span>
-      </div>
     </article>
   `;
 }
