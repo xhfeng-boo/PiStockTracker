@@ -82,8 +82,8 @@ h2 {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.42fr) minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(460px, 0.55fr) minmax(0, 1fr);
+  gap: 24px;
   align-items: start;
 }
 
@@ -94,28 +94,28 @@ h2 {
 .calendar-panel {
   position: sticky;
   top: 24px;
-  padding: 22px;
+  padding: 30px;
   border: 1px solid rgba(244, 241, 232, 0.14);
   border-radius: 8px;
   background: rgba(27, 32, 34, 0.86);
 }
 
 .panel-heading {
-  margin-bottom: 18px;
+  margin-bottom: 26px;
 }
 
 .calendar-week {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .calendar-day {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-columns: 104px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
-  min-height: 82px;
-  padding: 12px;
+  gap: 18px;
+  min-height: 118px;
+  padding: 18px;
   border: 1px solid rgba(244, 241, 232, 0.12);
   border-radius: 8px;
   background: rgba(17, 19, 20, 0.56);
@@ -128,18 +128,18 @@ h2 {
 .calendar-date {
   display: grid;
   justify-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
 .day-name {
   color: var(--accent);
-  font-size: clamp(0.85rem, 0.8vw, 1.05rem);
+  font-size: clamp(1.08rem, 1.05vw, 1.45rem);
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .day-number {
-  font-size: clamp(1.65rem, 1.8vw, 2.4rem);
+  font-size: clamp(2.35rem, 2.45vw, 3.35rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -151,7 +151,7 @@ h2 {
 .calendar-empty {
   margin: 0;
   color: var(--muted);
-  font-size: clamp(0.92rem, 0.9vw, 1.12rem);
+  font-size: clamp(1.08rem, 1.05vw, 1.38rem);
 }
 
 .summary {
@@ -265,6 +265,29 @@ h2 {
 }
 
 @media (min-width: 1700px) {
+  .dashboard-grid {
+    grid-template-columns: minmax(560px, 0.62fr) minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .calendar-panel {
+    padding: 34px;
+  }
+
+  .calendar-day {
+    grid-template-columns: 118px minmax(0, 1fr);
+    min-height: 136px;
+    padding: 22px;
+  }
+
+  .day-number {
+    font-size: clamp(2.8rem, 2.7vw, 3.8rem);
+  }
+
+  .calendar-empty {
+    font-size: clamp(1.18rem, 1.1vw, 1.5rem);
+  }
+
   .stock-row {
     grid-template-columns: minmax(320px, 0.85fr) minmax(640px, 1.8fr) minmax(280px, 0.75fr);
     min-height: 188px;
