@@ -7,12 +7,18 @@ import { fileURLToPath } from "node:url";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const publicDir = join(__dirname, "public");
 const finnhubBaseUrl = "https://finnhub.io/api/v1";
+const weatherBaseUrl = "https://api.open-meteo.com/v1/forecast";
 
 loadEnv();
 
 const apiKey = process.env.FINNHUB_API_KEY;
 const port = Number(process.env.PORT || 3000);
 const defaultSymbols = cleanSymbols(process.env.DEFAULT_SYMBOLS || "SPY,GOOGL,AMZN,MSFT,SOXL,INTC,GLD,AMD,MU");
+const weatherConfig = {
+  latitude: Number(process.env.WEATHER_LAT || 39.51824),
+  longitude: Number(process.env.WEATHER_LON || -119.98881),
+  label: process.env.WEATHER_LABEL || "Verdi, Nevada"
+};
 const cache = new Map();
 const priceHistory = new Map();
 
@@ -49,6 +55,12 @@ server.listen(port, "0.0.0.0", () => {
 async function routeApi(url, res) {
   if (url.pathname === "/api/config") {
     sendJson(res, 200, { defaultSymbols });
+    return;
+  }
+
+  if (url.pathname === "/api/weather") {
+    const weather = await cached("weather-week", 900_000, getWeeklyWeather);
+    sendJson(res, 200, weather);
     return;
   }
 
@@ -154,6 +166,52 @@ function updatePriceHistory(symbol, price, previousClose) {
 
 function isFiniteNumber(value) {
   return value !== null && value !== undefined && Number.isFinite(Number(value));
+}
+
+async function getWeeklyWeather() {
+  const url = new URL(weatherBaseUrl);
+  url.searchParams.set("latitude", weatherConfig.latitude);
+  url.searchParams.set("longitude", weatherConfig.longitude);
+  url.searchParams.set("daily", "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max");
+  url.searchParams.set("temperature_unit", "fahrenheit");
+  url.searchParams.set("timezone", "auto");
+  url.searchParams.set("forecast_days", "7");
+
+  const response = await fetch(url, { headers: { Accept: "application/json" } });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.reason || `Weather returned HTTP ${response.status}`);
+  }
+
+  const daily = data.daily || {};
+  const days = (daily.time || []).map((date, index) => ({
+    date,
+    code: daily.weather_code?.[index] ?? null,
+    summary: weatherSummary(daily.weather_code?.[index]),
+    high: daily.temperature_2m_max?.[index] ?? null,
+    low: daily.temperature_2m_min?.[index] ?? null,
+    precipitation: daily.precipitation_probability_max?.[index] ?? null
+  }));
+
+  return {
+    location: weatherConfig.label,
+    latitude: weatherConfig.latitude,
+    longitude: weatherConfig.longitude,
+    days,
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function weatherSummary(code) {
+  if (code === 0) return "Clear";
+  if ([1, 2].includes(code)) return "Partly cloudy";
+  if (code === 3) return "Cloudy";
+  if ([45, 48].includes(code)) return "Fog";
+  if ([51, 53, 55, 56, 57].includes(code)) return "Drizzle";
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "Rain";
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return "Snow";
+  if ([95, 96, 99].includes(code)) return "Storms";
+  return "Forecast";
 }
 
 async function finnhub(pathname, params = {}) {

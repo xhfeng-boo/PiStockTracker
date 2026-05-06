@@ -82,7 +82,7 @@ h2 {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(460px, 0.55fr) minmax(0, 1fr);
+  grid-template-columns: minmax(420px, 0.52fr) minmax(0, 1fr) minmax(340px, 0.42fr);
   gap: 24px;
   align-items: start;
 }
@@ -91,7 +91,8 @@ h2 {
   display: block;
 }
 
-.calendar-panel {
+.calendar-panel,
+.weather-panel {
   position: sticky;
   top: 24px;
   padding: 30px;
@@ -104,12 +105,14 @@ h2 {
   margin-bottom: 26px;
 }
 
-.calendar-week {
+.calendar-week,
+.weather-week {
   display: grid;
   gap: 14px;
 }
 
-.calendar-day {
+.calendar-day,
+.weather-day {
   display: grid;
   grid-template-columns: 104px minmax(0, 1fr);
   align-items: center;
@@ -125,27 +128,56 @@ h2 {
   border-color: rgba(228, 180, 79, 0.62);
 }
 
-.calendar-date {
+.calendar-date,
+.weather-date {
   display: grid;
   justify-items: center;
   gap: 8px;
 }
 
-.day-name {
+.day-name,
+.weather-name {
   color: var(--accent);
   font-size: clamp(1.08rem, 1.05vw, 1.45rem);
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.day-number {
+.day-number,
+.weather-number {
   font-size: clamp(2.35rem, 2.45vw, 3.35rem);
   font-weight: 900;
   line-height: 1;
 }
 
-.calendar-events {
+.calendar-events,
+.weather-details {
   min-width: 0;
+}
+
+.weather-details {
+  display: grid;
+  gap: 6px;
+}
+
+.weather-details strong {
+  overflow: hidden;
+  font-size: clamp(1.08rem, 1.05vw, 1.4rem);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weather-details span {
+  color: var(--muted);
+  font-size: clamp(1.25rem, 1.25vw, 1.7rem);
+  font-weight: 900;
+}
+
+.rain-chance {
+  justify-self: end;
+  color: var(--blue);
+  font-size: clamp(1rem, 1vw, 1.28rem);
+  font-weight: 900;
 }
 
 .calendar-empty {
@@ -266,18 +298,24 @@ h2 {
 
 @media (min-width: 1700px) {
   .dashboard-grid {
-    grid-template-columns: minmax(560px, 0.62fr) minmax(0, 1fr);
+    grid-template-columns: minmax(480px, 0.54fr) minmax(0, 1fr) minmax(420px, 0.46fr);
     gap: 30px;
   }
 
-  .calendar-panel {
+  .calendar-panel,
+  .weather-panel {
     padding: 34px;
   }
 
-  .calendar-day {
+  .calendar-day,
+  .weather-day {
     grid-template-columns: 118px minmax(0, 1fr);
     min-height: 136px;
     padding: 22px;
+  }
+
+  .weather-day {
+    grid-template-columns: 92px minmax(0, 1fr) auto;
   }
 
   .day-number {
@@ -305,19 +343,26 @@ h2 {
     grid-template-columns: 1fr;
   }
 
-  .calendar-panel {
+  .calendar-panel,
+  .weather-panel {
     position: static;
   }
 
-  .calendar-week {
+  .calendar-week,
+  .weather-week {
     grid-template-columns: repeat(7, minmax(120px, 1fr));
     overflow-x: auto;
   }
 
-  .calendar-day {
+  .calendar-day,
+  .weather-day {
     grid-template-columns: 1fr;
     align-content: start;
     min-height: 130px;
+  }
+
+  .rain-chance {
+    justify-self: start;
   }
 
   .stock-row {
@@ -359,22 +404,30 @@ h2 {
   }
 
   .summary,
-  .calendar-week {
+  .calendar-week,
+  .weather-week {
     gap: 12px;
   }
 
-  .calendar-panel {
+  .calendar-panel,
+  .weather-panel {
     padding: 14px;
   }
 
-  .calendar-week {
+  .calendar-week,
+  .weather-week {
     grid-template-columns: 1fr;
     overflow-x: visible;
   }
 
-  .calendar-day {
+  .calendar-day,
+  .weather-day {
     grid-template-columns: 58px minmax(0, 1fr);
     min-height: 72px;
+  }
+
+  .weather-day {
+    grid-template-columns: 58px minmax(0, 1fr) auto;
   }
 
   .stock-row {

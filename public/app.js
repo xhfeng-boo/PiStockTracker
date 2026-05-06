@@ -2,17 +2,24 @@ const summaryGrid = document.querySelector("#summaryGrid");
 const marketStatus = document.querySelector("#marketStatus");
 const updatedAt = document.querySelector("#updatedAt");
 const calendarWeek = document.querySelector("#calendarWeek");
+const weatherLocation = document.querySelector("#weatherLocation");
+const weatherWeek = document.querySelector("#weatherWeek");
 
 let latestStocks = [];
 let refreshTimer;
+let weatherTimer;
 
 init();
 
 async function init() {
   renderCalendarWeek();
-  await loadDashboard();
+  await Promise.all([loadDashboard(), loadWeather()]);
   refreshTimer = setInterval(loadDashboard, 30_000);
-  window.addEventListener("beforeunload", () => clearInterval(refreshTimer));
+  weatherTimer = setInterval(loadWeather, 30 * 60_000);
+  window.addEventListener("beforeunload", () => {
+    clearInterval(refreshTimer);
+    clearInterval(weatherTimer);
+  });
   window.addEventListener("resize", () => drawStockCharts(latestStocks));
 }
 
@@ -40,6 +47,43 @@ function renderCalendarWeek() {
           <div class="calendar-events">
             <p class="calendar-empty">Calendar not connected</p>
           </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function loadWeather() {
+  try {
+    const data = await getJson("/api/weather");
+    renderWeather(data);
+  } catch (error) {
+    weatherWeek.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
+  }
+}
+
+function renderWeather(data) {
+  weatherLocation.textContent = data.location || "Weather";
+
+  if (!data.days?.length) {
+    weatherWeek.innerHTML = `<div class="empty">No forecast available.</div>`;
+    return;
+  }
+
+  weatherWeek.innerHTML = data.days
+    .map((day) => {
+      const date = new Date(`${day.date}T12:00:00`);
+      return `
+        <article class="weather-day">
+          <div class="weather-date">
+            <span class="weather-name">${date.toLocaleDateString("en-US", { weekday: "short" })}</span>
+            <span class="weather-number">${date.getDate()}</span>
+          </div>
+          <div class="weather-details">
+            <strong>${escapeHtml(day.summary)}</strong>
+            <span>${round(day.high)}° / ${round(day.low)}°</span>
+          </div>
+          <div class="rain-chance">${day.precipitation ?? 0}%</div>
         </article>
       `;
     })
@@ -216,6 +260,11 @@ function money(value, currency = "USD") {
     currency: currency || "USD",
     maximumFractionDigits: 2
   }).format(value);
+}
+
+function round(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) return "N/A";
+  return Math.round(Number(value));
 }
 
 function signed(value) {
