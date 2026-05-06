@@ -12,7 +12,7 @@ loadEnv();
 
 const apiKey = process.env.FINNHUB_API_KEY;
 const port = Number(process.env.PORT || 3000);
-const defaultSymbols = cleanSymbols(process.env.DEFAULT_SYMBOLS || "SPY,GOOGL,AMZN,MSFT,SOXL,INTC,TSLA,QQQ,GLD,AMD,MU");
+const defaultSymbols = cleanSymbols(process.env.DEFAULT_SYMBOLS || "SPY,GOOGL,AMZN,MSFT,SOXL,INTC,GLD,AMD,MU");
 const cache = new Map();
 const priceHistory = new Map();
 

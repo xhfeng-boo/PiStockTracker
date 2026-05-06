@@ -17,7 +17,7 @@ A lightweight stock market tracker dashboard made for a Raspberry Pi. It uses a 
 ```bash
 FINNHUB_API_KEY=your_finnhub_api_key_here
 PORT=3000
-DEFAULT_SYMBOLS=SPY,GOOGL,AMZN,MSFT,SOXL,INTC,TSLA,QQQ,GLD,AMD,MU
+DEFAULT_SYMBOLS=SPY,GOOGL,AMZN,MSFT,SOXL,INTC,GLD,AMD,MU
 ```
 
 4. Start the dashboard:
