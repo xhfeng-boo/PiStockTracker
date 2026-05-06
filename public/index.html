@@ -16,10 +16,18 @@
         <div class="status" id="marketStatus">Loading market status</div>
       </header>
 
-      <section class="layout">
-        <div>
+      <section class="dashboard-grid">
+        <aside class="calendar-panel" aria-label="Weekly calendar">
+          <div class="panel-heading">
+            <p class="eyebrow">This Week</p>
+            <h2>Calendar</h2>
+          </div>
+          <div class="calendar-week" id="calendarWeek"></div>
+        </aside>
+
+        <section class="layout" aria-label="Market tracker">
           <section class="summary" id="summaryGrid" aria-label="Stock watchlist"></section>
-        </div>
+        </section>
       </section>
 
       <p class="updated" id="updatedAt"></p>

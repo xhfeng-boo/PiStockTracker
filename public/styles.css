@@ -80,8 +80,78 @@ h2 {
   text-align: right;
 }
 
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.42fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
 .layout {
   display: block;
+}
+
+.calendar-panel {
+  position: sticky;
+  top: 24px;
+  padding: 22px;
+  border: 1px solid rgba(244, 241, 232, 0.14);
+  border-radius: 8px;
+  background: rgba(27, 32, 34, 0.86);
+}
+
+.panel-heading {
+  margin-bottom: 18px;
+}
+
+.calendar-week {
+  display: grid;
+  gap: 10px;
+}
+
+.calendar-day {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  min-height: 82px;
+  padding: 12px;
+  border: 1px solid rgba(244, 241, 232, 0.12);
+  border-radius: 8px;
+  background: rgba(17, 19, 20, 0.56);
+}
+
+.calendar-day.today {
+  border-color: rgba(228, 180, 79, 0.62);
+}
+
+.calendar-date {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.day-name {
+  color: var(--accent);
+  font-size: clamp(0.85rem, 0.8vw, 1.05rem);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.day-number {
+  font-size: clamp(1.65rem, 1.8vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.calendar-events {
+  min-width: 0;
+}
+
+.calendar-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.92rem, 0.9vw, 1.12rem);
 }
 
 .summary {
@@ -208,6 +278,25 @@ h2 {
 }
 
 @media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-panel {
+    position: static;
+  }
+
+  .calendar-week {
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    overflow-x: auto;
+  }
+
+  .calendar-day {
+    grid-template-columns: 1fr;
+    align-content: start;
+    min-height: 130px;
+  }
+
   .stock-row {
     grid-template-columns: 1fr minmax(220px, 0.8fr);
   }
@@ -246,8 +335,23 @@ h2 {
     text-align: left;
   }
 
-  .summary {
+  .summary,
+  .calendar-week {
     gap: 12px;
+  }
+
+  .calendar-panel {
+    padding: 14px;
+  }
+
+  .calendar-week {
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+  }
+
+  .calendar-day {
+    grid-template-columns: 58px minmax(0, 1fr);
+    min-height: 72px;
   }
 
   .stock-row {

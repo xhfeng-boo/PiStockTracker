@@ -1,6 +1,7 @@
 const summaryGrid = document.querySelector("#summaryGrid");
 const marketStatus = document.querySelector("#marketStatus");
 const updatedAt = document.querySelector("#updatedAt");
+const calendarWeek = document.querySelector("#calendarWeek");
 
 let latestStocks = [];
 let refreshTimer;
@@ -8,10 +9,41 @@ let refreshTimer;
 init();
 
 async function init() {
+  renderCalendarWeek();
   await loadDashboard();
   refreshTimer = setInterval(loadDashboard, 30_000);
   window.addEventListener("beforeunload", () => clearInterval(refreshTimer));
   window.addEventListener("resize", () => drawStockCharts(latestStocks));
+}
+
+function renderCalendarWeek() {
+  const today = new Date();
+  const start = new Date(today);
+  start.setHours(0, 0, 0, 0);
+  start.setDate(today.getDate() - today.getDay());
+
+  const days = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(start);
+    date.setDate(start.getDate() + index);
+    return date;
+  });
+
+  calendarWeek.innerHTML = days
+    .map((date) => {
+      const isToday = date.toDateString() === today.toDateString();
+      return `
+        <article class="calendar-day ${isToday ? "today" : ""}">
+          <div class="calendar-date">
+            <span class="day-name">${date.toLocaleDateString("en-US", { weekday: "short" })}</span>
+            <span class="day-number">${date.getDate()}</span>
+          </div>
+          <div class="calendar-events">
+            <p class="calendar-empty">Calendar not connected</p>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 async function loadDashboard() {
